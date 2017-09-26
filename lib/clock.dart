@@ -18,19 +18,43 @@ class _ClockPageState extends State<ClockPage> {
         title: new Text(widget.title),
       ),
       body: new Center(
-        child: new Container(
-          height: 400.0,
-          width: 400.0,
-          decoration: new BoxDecoration(
-              color: Colors.blueGrey, shape: BoxShape.circle),
-          child: new Center(
-            child: new Text(
-              "${new DateTime.now()}",
-              style: new TextStyle(color: Colors.white70)
-            )
-          ),
+        child: new CustomPaint(
+          size: new Size(400.0, 400.0),
+          painter: new ClockPainter(),
         ),
       ),
     );
+  }
+}
+
+class ClockPainter extends CustomPainter {
+  final DateTime currentTime = new DateTime.now();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Offset center = new Offset(size.width / 2, size.height / 2);
+    canvas.drawCircle(
+        center,
+        200.0,
+        new Paint()
+          ..color = Colors.blueGrey
+          ..style = PaintingStyle.fill);
+
+    var painter = new TextPainter(
+      text: new TextSpan(
+        text: currentTime.toIso8601String(),
+        style: new TextStyle(color: Colors.white70)
+      ),
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr
+    );
+    painter.layout();
+    var timeOffset = new Offset(center.dx - painter.width / 2, center.dy);
+    painter.paint(canvas, timeOffset);
+ }
+
+  @override
+  bool shouldRepaint(ClockPainter old) {
+    return new DateTime.now().difference(old.currentTime) > new Duration(milliseconds: 500);
   }
 }
