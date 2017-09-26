@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/homepage.dart';
+import 'package:flutter_playground/clock.dart';
 
 void main() {
   runApp(new MyApp());
@@ -11,9 +12,9 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  Route<Null> _getRoute(RouteSettings settings) {
-    return null;
-  }
+  // Route<Null> _getRoute(RouteSettings settings) {
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,10 @@ class MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       routes: <String, WidgetBuilder>{
-        '/':  (BuildContext context) => new MyHomePage("DemoMainMenu")
+        '/':      (BuildContext context) => new MyHomePage("Demo List"),
+        '/clock': (BuildContext context) => new ClockPage("Clock")
       },
-      onGenerateRoute: _getRoute,
+      // onGenerateRoute: _getRoute,
     );
   }
 }
