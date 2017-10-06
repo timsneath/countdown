@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+// for now, this is just a rough and ugly text
+// we'll change it into a Scrabble tile effect soon
+class LetterTile extends StatelessWidget {
+  const LetterTile(this.letter);
+
+  final String letter;
+
+  Widget build(BuildContext context) => new Text(letter);
+}
+
+
 class LettersPage extends StatefulWidget {
   const LettersPage(this.title);
 
@@ -34,15 +45,15 @@ class _LettersPageState extends State<LettersPage> {
         shrinkWrap: true,
         padding: const EdgeInsets.all(20.0),
         children: <Widget>[
-          const Text('A'),
-          const Text('B'),
-          const Text('C'),
-          const Text('D'),
-          const Text('E'),
-          const Text('F'),
-          const Text('G'),
-          const Text('H'),
-          const Text('I'),
+          new LetterTile('A'),
+          new LetterTile('B'),
+          new LetterTile('C'),
+          new LetterTile('P'),
+          new LetterTile('E'),
+          new LetterTile('F'),
+          new LetterTile('G'),
+          new LetterTile('H'),
+          new LetterTile('I'),
         ],
       )
     );
