@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class ClockControl extends AnimatedWidget {
-  ClockControl({Key key, Animation<double> animation})
+class CountdownClock extends AnimatedWidget {
+  CountdownClock({Key key, Animation<double> animation})
       : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
     return new CustomPaint(
       size: new Size(400.0, 400.0),
-      painter: new ClockPainter(animation.value),
+      painter: new CountdownClockPainter(animation.value),
     );
   }
 }
@@ -44,7 +44,7 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
       ),
       body: new Container(
         child: new Center(
-          child: new ClockControl(
+          child: new CountdownClock(
               animation:
                   new Tween(begin: 0.0, end: 180.0).animate(_controller)),
         ),
@@ -53,12 +53,11 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
   }
 }
 
-class ClockPainter extends CustomPainter {
-  const ClockPainter(this.animationValue);
+class CountdownClockPainter extends CustomPainter {
+  const CountdownClockPainter(this.animationValue);
 
   final double animationValue;
 
-  @override
   void paint(Canvas canvas, Size size) {
     final Offset center = new Offset(size.width / 2, size.height / 2);
     canvas.drawCircle(
@@ -68,22 +67,20 @@ class ClockPainter extends CustomPainter {
           ..color = Colors.blueGrey
           ..style = PaintingStyle.fill);
 
-    final DateTime currentTime = new DateTime.now();
-
     var painter = new TextPainter(
         text: new TextSpan(
             text: animationValue.round().toString(),
-            // text: currentTime.toString(),
-            style: new TextStyle(color: Colors.white70)),
+            style: new TextStyle(color: Colors.white70, fontSize: 40.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);
     painter.layout();
-    var timeOffset = new Offset(center.dx - painter.width / 2, center.dy);
+    var timeOffset = new Offset(
+        center.dx - painter.width / 2, center.dy - painter.height / 2);
     painter.paint(canvas, timeOffset);
   }
 
-  @override
-  bool shouldRepaint(ClockPainter old) => true;
+  // right now we're just painting as often as called - is this bad?
+  bool shouldRepaint(CountdownClockPainter old) => true;
   // new DateTime.now().difference(old.currentTime) >
   // new Duration(milliseconds: 500);
 }
