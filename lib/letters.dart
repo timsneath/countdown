@@ -10,7 +10,6 @@ class LetterTile extends StatelessWidget {
   Widget build(BuildContext context) => new Text(letter);
 }
 
-
 class LettersPage extends StatefulWidget {
   const LettersPage(this.title);
 
@@ -21,7 +20,6 @@ class LettersPage extends StatefulWidget {
 }
 
 class _LettersPageState extends State<LettersPage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -39,23 +37,17 @@ class _LettersPageState extends State<LettersPage> {
   }
 
   Widget _letterTilesComposer() {
+    var tiles = ['A', 'B', 'F', 'L', 'U', 'T', 'T', 'E', 'R', 'Z'];
+    var tileWidgets = [];
+
+    // could use tiles.forEach() - how would that go?
+    for (var tile in tiles) tileWidgets.add(new LetterTile(tile));
+
     return new Container(
-      margin: const EdgeInsets.all(8.0),
-      child: new ListView(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(20.0),
-        children: <Widget>[
-          new LetterTile('A'),
-          new LetterTile('B'),
-          new LetterTile('C'),
-          new LetterTile('P'),
-          new LetterTile('E'),
-          new LetterTile('F'),
-          new LetterTile('G'),
-          new LetterTile('H'),
-          new LetterTile('I'),
-        ],
-      )
-    );
+        margin: const EdgeInsets.all(8.0),
+        child: new ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: tileWidgets));
   }
 }

@@ -29,6 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            // ugly but functional
+            
             new RaisedButton(
               child: new Text(
                 'Clock Demo'
