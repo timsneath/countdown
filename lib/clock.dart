@@ -51,6 +51,12 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
 
 class CountdownClockPainter extends CustomPainter {
