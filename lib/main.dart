@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/homepage.dart';
 import 'package:flutter_playground/clock.dart';
+import 'package:flutter_playground/letters.dart';
 
 void main() {
   runApp(new MyApp());
@@ -24,8 +25,9 @@ class MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       routes: <String, WidgetBuilder>{
-        '/':      (BuildContext context) => new MyHomePage("Demo List"),
-        '/clock': (BuildContext context) => new ClockPage("Clock")
+        '/':        (BuildContext context) => new MyHomePage("Demo List"),
+        '/clock':   (BuildContext context) => new ClockPage("Clock"),
+        '/letters': (BuildContext context) => new LettersPage("Letters")
       },
       // onGenerateRoute: _getRoute,
     );

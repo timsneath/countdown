@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class Clock extends AnimatedWidget {
-  Clock({Key key, this.animation}) : super(key: key, listenable: animation);
-  Animation<int> animation;
+class ClockControl extends AnimatedWidget {
+  ClockControl({Key key, Animation<double> animation})
+      : super(key: key, listenable: animation);
 
-  @override
   Widget build(BuildContext context) {
+    final Animation<double> animation = listenable;
     return new CustomPaint(
       size: new Size(400.0, 400.0),
-      painter: new ClockPainter(),
+      painter: new ClockPainter(animation.value),
     );
   }
 }
@@ -31,7 +31,7 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
     super.initState();
     _controller = new AnimationController(
       vsync: this,
-      duration: new Duration(seconds: 10), // currently ticks for ten seconds
+      duration: new Duration(seconds: 30),
     );
     _controller.forward();
   }
@@ -44,7 +44,9 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
       ),
       body: new Container(
         child: new Center(
-          child: new Clock(animation: new StepTween(begin: 0, end: 1000).animate(_controller)),
+          child: new ClockControl(
+              animation:
+                  new Tween(begin: 0.0, end: 180.0).animate(_controller)),
         ),
       ),
     );
@@ -52,7 +54,9 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
 }
 
 class ClockPainter extends CustomPainter {
-  final DateTime currentTime = new DateTime.now();
+  const ClockPainter(this.animationValue);
+
+  final double animationValue;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -64,9 +68,12 @@ class ClockPainter extends CustomPainter {
           ..color = Colors.blueGrey
           ..style = PaintingStyle.fill);
 
+    final DateTime currentTime = new DateTime.now();
+
     var painter = new TextPainter(
         text: new TextSpan(
-            text: currentTime.toString(),
+            text: animationValue.round().toString(),
+            // text: currentTime.toString(),
             style: new TextStyle(color: Colors.white70)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);
@@ -77,7 +84,6 @@ class ClockPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ClockPainter old) => true;
-    // return new DateTime.now().difference(old.currentTime) >
-    //     new Duration(milliseconds: 500);
-    // }
+  // new DateTime.now().difference(old.currentTime) >
+  // new Duration(milliseconds: 500);
 }

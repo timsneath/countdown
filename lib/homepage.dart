@@ -15,6 +15,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pushNamed('/clock');
   }
 
+  void _onLettersDemoPressed() {
+    Navigator.of(context).pushNamed('/letters');
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -30,6 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Clock Demo'
               ),
               onPressed: _onClockDemoPressed,
+            ),
+            new RaisedButton(
+              child: new Text(
+                'Letters Demo'
+              ),
+              onPressed: _onLettersDemoPressed,
             )
           ],
         ),
