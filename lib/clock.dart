@@ -46,7 +46,7 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
         child: new Center(
           child: new CountdownClock(
               animation:
-                  new Tween(begin: 0.0, end: 180.0).animate(_controller)),
+                  new Tween(begin: 0.0, end: 360.0).animate(_controller)),
         ),
       ),
     );
@@ -75,7 +75,7 @@ class CountdownClockPainter extends CustomPainter {
 
     var painter = new TextPainter(
         text: new TextSpan(
-            text: animationValue.round().toString(),
+            text: animationValue.toStringAsFixed(1),
             style: new TextStyle(color: Colors.white70, fontSize: 40.0)),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);

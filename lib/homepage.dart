@@ -10,15 +10,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  void _onClockDemoPressed() {
-    Navigator.of(context).pushNamed('/clock');
-  }
-
-  void _onLettersDemoPressed() {
-    Navigator.of(context).pushNamed('/letters');
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -28,20 +19,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          
           children: <Widget>[
             // ugly but functional
-            
             new RaisedButton(
-              child: new Text(
-                'Clock Demo'
-              ),
-              onPressed: _onClockDemoPressed,
+              child: new Text('CLOCK DEMO'),
+              onPressed: () => Navigator.of(context).pushNamed('/clock'),
             ),
             new RaisedButton(
-              child: new Text(
-                'Letters Demo'
-              ),
-              onPressed: _onLettersDemoPressed,
+              child: new Text('LETTERS DEMO'),
+              onPressed: () => Navigator.of(context).pushNamed('/letters'),
             )
           ],
         ),
