@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'dart:math' as math;
 
 class CountdownClock extends AnimatedWidget {
   CountdownClock({Key key, Animation<double> animation})
@@ -7,6 +8,7 @@ class CountdownClock extends AnimatedWidget {
 
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
+    
     return new CustomPaint(
       size: new Size(400.0, 400.0),
       painter: new CountdownClockPainter(animation.value),
@@ -65,7 +67,11 @@ class CountdownClockPainter extends CustomPainter {
   final double animationValue;
 
   void paint(Canvas canvas, Size size) {
+    // need to separate animated and non-animated components
+
+
     final Offset center = new Offset(size.width / 2, size.height / 2);
+
     canvas.drawCircle(
         center,
         200.0,
@@ -73,17 +79,44 @@ class CountdownClockPainter extends CustomPainter {
           ..color = Colors.blueGrey
           ..style = PaintingStyle.fill);
 
-    var painter = new TextPainter(
-        text: new TextSpan(
-            text: animationValue.toStringAsFixed(1),
-            style: new TextStyle(color: Colors.white70, fontSize: 40.0)),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr);
-    painter.layout();
-    var timeOffset = new Offset(
-        center.dx - painter.width / 2, center.dy - painter.height / 2);
-    painter.paint(canvas, timeOffset);
+    canvas.drawCircle(
+        center,
+        20.0,
+        new Paint()
+          ..color = Colors.lightBlue
+          ..style = PaintingStyle.fill);
+
+    canvas.drawCircle(
+        center,
+        15.0,
+        new Paint()
+          ..color = Colors.white
+          ..style = PaintingStyle.fill);
+
+    canvas.drawLine(
+        center,
+        new Offset(
+            center.dx +
+                (150.0 * math.cos((animationValue - 90) * math.PI / 180.0)),
+            center.dy +
+                (150.0 * math.sin((animationValue - 90) * math.PI / 180.0))),
+        new Paint()
+          ..color = Colors.white
+          ..style = PaintingStyle.fill);
   }
+
+
+  //   var painter = new TextPainter(
+  //       text: new TextSpan(
+  //           text: animationValue.toStringAsFixed(1),
+  //           style: new TextStyle(color: Colors.white70, fontSize: 40.0)),
+  //       textAlign: TextAlign.center,
+  //       textDirection: TextDirection.ltr);
+  //   painter.layout();
+  //   var timeOffset = new Offset(
+  //       center.dx - painter.width / 2, center.dy - painter.height / 2);
+  //   painter.paint(canvas, timeOffset);
+  // }
 
   // right now we're just painting as often as called - is this bad?
   bool shouldRepaint(CountdownClockPainter old) => true;
