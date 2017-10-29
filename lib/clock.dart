@@ -9,12 +9,18 @@ class CountdownClock extends AnimatedWidget {
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
 
-    return new Transform.rotate(
-        angle: animation.value * math.PI / 180.0,
-        child: new CustomPaint(
+    return new CustomPaint(
           size: new Size(400.0, 400.0),
           painter: new CountdownClockPainter(animation.value),
-        ));
+        );
+
+    // return new Transform.rotate(
+    //     angle: animation.value * math.PI / 180.0,
+    //     origin: new Offset(200.0, 200.0),
+    //     child: new CustomPaint(
+    //       size: new Size(400.0, 400.0),
+    //       painter: new CountdownClockPainter(animation.value),
+    //     ));
   }
 }
 
@@ -80,26 +86,29 @@ class CountdownClockPainter extends CustomPainter {
           ..color = Colors.blueGrey
           ..style = PaintingStyle.fill);
 
-    canvas.drawCircle(
-        center,
-        20.0,
+    Path pointer = new Path()
+      ..moveTo(0.0, 0.0)
+      ..addArc(new Rect.fromLTRB(-10.0, -10.0, 10.0, 10.0),
+          30 * math.PI / 180, 300 * math.PI / 180)
+      ..moveTo(0.0, 0.0)
+      ..addPolygon([
+        new Offset(0.0, 0.0),
+        new Offset(0.0, -150.0),
+        new Offset(10.0, 150.0)
+      ], true)
+      ..moveTo(0.0, 0.0)
+      ..addPolygon([
+        new Offset(0.0, 0.0),
+        new Offset(0.0, -150.0),
+        new Offset(-10.0, 150.0)
+      ], true);
+
+    canvas.drawPath(
+        pointer,
         new Paint()
           ..color = Colors.lightBlue
           ..style = PaintingStyle.fill);
 
-    canvas.drawCircle(
-        center,
-        15.0,
-        new Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.fill);
-
-    canvas.drawLine(
-        center,
-        new Offset(center.dx + 0, center.dy - 150.0),
-        new Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.fill);
   }
 
   bool shouldRepaint(CountdownClockPainter old) => false;
