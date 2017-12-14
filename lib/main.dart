@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/homepage.dart';
-import 'package:flutter_playground/clock.dart';
+import 'package:flutter_playground/clock-page.dart';
 import 'package:flutter_playground/letters.dart';
 
 void main() {
