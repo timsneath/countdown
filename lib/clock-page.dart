@@ -12,6 +12,7 @@ class ClockPage extends StatefulWidget {
 
 class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
   AnimationController _controller;
+  Animation<double> animation;
 
   void initState() {
     super.initState();
@@ -19,6 +20,8 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
       vsync: this,
       duration: new Duration(seconds: 30),
     );
+    animation = new Tween(begin: 0.0, end: 1.0).animate(_controller);
+
     _controller.forward();
   }
 
@@ -30,8 +33,8 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
       body: new Container(
         child: new Center(
           child: new CountdownClock(
-              animation:
-                  new Tween(begin: 0.0, end: 360.0).animate(_controller)),
+              animation: animation
+          )
         ),
       ),
     );

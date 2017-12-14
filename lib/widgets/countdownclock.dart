@@ -4,6 +4,10 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
 class CountdownClock extends AnimatedWidget {
+  static final _doubleTween = new Tween<double>(begin: 0.0, end: 360.0);
+  static final _colorTween =
+      new ColorTween(begin: Colors.green, end: Colors.red);
+
   CountdownClock({Key key, Animation<double> animation})
       : super(key: key, listenable: animation);
 
@@ -12,17 +16,19 @@ class CountdownClock extends AnimatedWidget {
 
     return new CustomPaint(
       size: new Size(300.0, 300.0),
-      painter: new CountdownClockPainter(animation.value),
+      painter: new CountdownClockPainter(
+          time: _doubleTween.evaluate(animation),
+          color: _colorTween.evaluate(animation)),
     );
   }
 }
 
 class CountdownClockPainter extends CustomPainter {
-  const CountdownClockPainter(this.animationValue);
+  double time;
+  Color color;
 
-  final animationValue;
+  CountdownClockPainter({this.time, this.color});
 
-  @override
   void paint(Canvas canvas, Size size) {
     // do we need to separate animated and non-animated components?
 
@@ -40,18 +46,18 @@ class CountdownClockPainter extends CustomPainter {
     canvas.drawCircle(center, 150.0, paint);
 
     paint
-    ..style = PaintingStyle.fill
-    ..color = Colors.grey;
+      ..style = PaintingStyle.fill
+      ..color = Colors.grey;
     canvas.drawCircle(center, 10.0, paint);
 
     paint
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 4.0
-    ..color = Colors.red;
-    canvas.drawLine(center, center + _getPosition(animationValue), paint);
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 8.0
+      ..color = color;
+    canvas.drawLine(center, center + _getPosition(time), paint);
   }
 
-  bool shouldRepaint(CountdownClockPainter old) => old.animationValue != animationValue;
+  bool shouldRepaint(CountdownClockPainter old) => old.time != time;
 
   Offset _getPosition(double degree) {
     final radians = -math.pi * degree / 180 - math.pi;
