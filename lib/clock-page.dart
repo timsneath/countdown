@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/widgets/countdownclock.dart';
-
+import 'widgets/countdownclock.dart';
 
 class ClockPage extends StatefulWidget {
   const ClockPage(this.title);
@@ -31,11 +30,7 @@ class _ClockPageState extends State<ClockPage> with TickerProviderStateMixin {
         title: new Text(widget.title),
       ),
       body: new Container(
-        child: new Center(
-          child: new CountdownClock(
-              animation: animation
-          )
-        ),
+        child: new Center(child: new CountdownClock(animation: animation)),
       ),
     );
   }

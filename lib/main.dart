@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/homepage.dart';
-import 'package:flutter_playground/clock-page.dart';
-import 'package:flutter_playground/letters.dart';
+import 'homepage.dart';
+import 'clock-page.dart';
+import 'letters.dart';
 
 void main() {
   runApp(new MyApp());
